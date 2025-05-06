@@ -10,7 +10,7 @@ services:
       - USERID=1000
       - GROUPID=1000
     volumes:
-      - shared-data:/data
+      - samba-volume:/data
     ports:
       - "445:445/tcp"
       - "139:139/tcp"
