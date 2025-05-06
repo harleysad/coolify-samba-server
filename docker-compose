@@ -16,8 +16,8 @@ services:
       - "139:139/tcp"
       - "137:137/udp"
     command: >-
-      -s "$${SAMBA_SHARE_NAME:-Public};/data;yes;no;yes;all;none;$${SAMBA_SHARE_NAME:-Public} share"
-      -u "$${SAMBA_USER}:$${SAMBA_PASSWORD}"
+      -s "Public;/data;yes;no;yes;all;none;public share"
+      -u "usuario;senhasecreta"  # Troque usuario/senhasecreta
       -p
       -g "map to guest = bad user"
       -g "guest account = nobody"
