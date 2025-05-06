@@ -46,4 +46,3 @@ Reinicie o serviço Samba
 
 Precisa de alguma adaptação adicional nesta configuração?
 
-New chat
