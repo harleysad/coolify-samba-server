@@ -1,9 +1,13 @@
 version: '3.8'
 
 services:
-  samba-server:
-    image: dperson/samba
-    container_name: samba-share
+  nome-servico:
+    image: debian:latest
+    container_name: nome-container
+    stdin_open: true
+    tty: true
+    command: tail -f /dev/null
+   
     restart: unless-stopped
     environment:
       - TZ=America/Sao_Paulo
@@ -11,17 +15,6 @@ services:
       - GROUPID=1000
     volumes:
       - samba-volume:/data
-    ports:
-      - "445:445/tcp"
-      - "139:139/tcp"
-      - "137:137/udp"
-    command: >-
-      -s "Public;/data;yes;no;yes;all;none;public share"
-      -u "usuario;senhasecreta"  # Troque usuario/senhasecreta
-      -p
-      -g "map to guest = bad user"
-      -g "guest account = nobody"
-      -S
 
 volumes:
   samba-volume:
