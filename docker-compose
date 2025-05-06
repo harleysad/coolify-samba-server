@@ -24,4 +24,4 @@ services:
       -S
 
 volumes:
-  samba-share:
+  samba-volume:
