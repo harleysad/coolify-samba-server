@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  samba-server:
+    image: dperson/samba
+    container_name: samba-share
+    restart: unless-stopped
+    environment:
+      - TZ=America/Sao_Paulo
+      - USERID=1000
+      - GROUPID=1000
+    volumes:
+      - shared-data:/data
+    ports:
+      - "445:445/tcp"
+      - "139:139/tcp"
+      - "137:137/udp"
+    command: >-
+      -s "$${SAMBA_SHARE_NAME:-Public};/data;yes;no;yes;all;none;$${SAMBA_SHARE_NAME:-Public} share"
+      -u "$${SAMBA_USER}:$${SAMBA_PASSWORD}"
+      -p
+      -g "map to guest = bad user"
+      -g "guest account = nobody"
+      -S
+
+volumes:
+  samba-share:
