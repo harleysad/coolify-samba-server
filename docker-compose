@@ -7,7 +7,7 @@ services:
       - massa1:/dados1
       - massa2:/dados2
     ports:
-      - 80:1710
+      - 1710:80
 volumes:
   massa1:
   massa2:
