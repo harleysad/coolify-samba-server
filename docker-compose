@@ -11,7 +11,6 @@ services:
     volumes:
       - massa1:/dados1
       - massa2:/dados2
-    command: tail -f /dev/null
 
 volumes:
   massa1:
