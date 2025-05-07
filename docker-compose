@@ -6,12 +6,6 @@ services:
     volumes:
       - massa1:/dados1
       - massa2:/dados2
-  alpino:
-    image: alpine/lynx
-    volumes:
-      - massa1:/dados1
-      - massa2:/dados2
-
 volumes:
   massa1:
   massa2:
