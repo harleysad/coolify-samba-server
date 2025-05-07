@@ -13,8 +13,3 @@ services:
       - TZ=America/Sao_Paulo
       - USERID=1000
       - GROUPID=1000
-    volumes:
-      - samba-volume:/data
-
-volumes:
-  samba-volume:
