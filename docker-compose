@@ -6,7 +6,7 @@ services:
     volumes:
       - massa1:/dados1
       - massa2:/dados2
-    ports
+    ports:
       - 80
 volumes:
   massa1:
