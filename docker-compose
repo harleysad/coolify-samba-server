@@ -3,16 +3,10 @@ version: '3.8'
 services:
   webserver:
     image: nginx:alpine
-    volumes:
-      - massa1:/dados1
-      - massa2:/dados2
     ports:
-      - 1710:80
+      - 2000:80
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:80 || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 3
-volumes:
-  massa1:
-  massa2:
