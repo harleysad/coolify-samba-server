@@ -1,9 +1,9 @@
 version: '3.8'
 
 services:
-  nome-servico:
+  nome-servico-cliente:
     image: debian:latest
-    container_name: nome-container
+    container_name: nome-container-cliente
     stdin_open: true
     tty: true
     command: tail -f /dev/null
