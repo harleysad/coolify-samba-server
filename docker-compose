@@ -13,5 +13,5 @@ services:
 
 servico2:
     image: busybox
-    volumes:
     command: tail -f /dev/null
+
