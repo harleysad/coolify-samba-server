@@ -1,5 +1,9 @@
 version: '3.8'
 
+servico2:
+    image: busybox
+    command: tail -f /dev/null
+
 services:
   webserver:
     image: nginx:alpine
@@ -11,7 +15,4 @@ services:
       timeout: 5s
       retries: 3
 
-servico2:
-    image: busybox
-    command: tail -f /dev/null
 
