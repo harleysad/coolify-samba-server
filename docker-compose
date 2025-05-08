@@ -4,15 +4,6 @@ servico2:
     image: busybox
     command: tail -f /dev/null
 
-services:
-  webserver:
-    image: nginx:alpine
-    ports:
-      - 80
-    healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:80 || exit 1"]
-      interval: 10s
-      timeout: 5s
-      retries: 3
+
 
 
