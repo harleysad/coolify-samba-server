@@ -15,7 +15,7 @@ services:
 
   debian:
     image: debian:latest
-    container_name: nginx
+    container_name: debian
     command: tail -f /dev/null
     restart: unless-stopped
 
