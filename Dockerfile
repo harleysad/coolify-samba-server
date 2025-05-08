@@ -13,6 +13,7 @@ RUN mkdir /keepalive
 
 # Define o diretório de trabalho
 WORKDIR /keepalive
+EXPOSE 3000
 
 # Comando para manter o container rodando
 CMD ["tail", "-f", "/dev/null"]
