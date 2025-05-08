@@ -5,6 +5,7 @@ services:
     image: nginx:alpine
     ports:
       - 80
+    container_name: nginx
     restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:80 || exit 1"]
@@ -14,6 +15,7 @@ services:
 
   debian:
     image: debian:latest
+    container_name: nginx
     command: tail -f /dev/null
     restart: unless-stopped
 
