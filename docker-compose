@@ -1,20 +1,14 @@
-version: '3.8'
-
 services:
-  nginx:
-    image: nginx:alpine
-    container_name: nginx
-    restart: unless-stopped
-    hostname: vexame1
-    healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:80 || exit 1"]
-      interval: 10s
-      timeout: 5s
-      retries: 3
-
-  debian:
-    image: debian:latest
-    hostname: vexame2
-    container_name: debian
-    command: tail -f /dev/null
-    restart: unless-stopped
+  samba:
+    image: dockurr/samba
+    container_name: samba
+    hostname: samba
+    environment:
+      NAME: "Data"
+      USER: "samba"
+      PASS: "secret"
+    ports:
+      - 445:445
+    volumes:
+      - ./samba:/storage
+    restart: always
