@@ -1,3 +1,4 @@
+version: '3'
 services:
   samba:
     image: dockurr/samba
@@ -12,3 +13,19 @@ services:
     volumes:
       - ./samba:/storage
     restart: always
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "445"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  samba-client:
+    image: alpine
+    container_name: samba-client
+    depends_on:
+      samba:
+        condition: service_healthy
+    volumes:
+      - ./scripts:/scripts
+    command: sh -c "apk add --no-cache samba-client && tail -f /dev/null"
+    restart: unless-stopped
