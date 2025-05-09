@@ -34,7 +34,7 @@ services:
       - /etc/coolify-data/wireguard/config:/etc/wireguard
       - /etc/coolify-data/wireguard/wui-data:/app/db
     ports:
-      - 5000:5000
+      - 80:5000
     depends_on:
       - wireguard
     restart: unless-stopped
