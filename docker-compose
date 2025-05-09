@@ -1,46 +1,22 @@
-version: '3.8'
-
+version: '3'
 services:
-  wireguard:
-    image: lscr.io/linuxserver/wireguard:latest
-    container_name: wireguard
+  vpn:
+    image: hwdsl2/ipsec-vpn-server
+    container_name: ipsec-vpn
+    restart: always
+    environment:
+      - VPN_IPSEC_PSK=your_shared_pre_key
+      - VPN_USER=seuusuario
+      - VPN_PASSWORD=suasenha
+      - VPN_PUBLIC_IP=SEU_IP_PUBLICO
+    ports:
+      - "500:500/udp"
+      - "4500:4500/udp"
+    sysctls:
+      - net.ipv4.ip_forward=1
+      - net.ipv4.conf.all.accept_redirects=0
+      - net.ipv4.conf.all.send_redirects=0
     cap_add:
       - NET_ADMIN
-      - SYS_MODULE
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=America/Sao_Paulo
     volumes:
-      - /etc/coolify-data/wireguard/config:/config
-      - /lib/modules:/lib/modules
-    ports:
-      - 51820:51820/udp
-    sysctls:
-      - net.ipv4.conf.all.src_valid_mark=1
-    restart: unless-stopped
-    networks:
-      - wg_network
-
-  wg-ui:
-    image: ngoduykhanh/wireguard-ui:latest
-    container_name: wg-ui
-    environment:
-      - SENDGRID_API_KEY=optional
-      - EMAIL_FROM=optional
-      - SESSION_SECRET=secret123
-      - WG_CONF_TEMPLATE=/etc/wireguard/wg0.conf.tmpl
-    volumes:
-      - /etc/coolify-data/wireguard/config:/etc/wireguard
-      - /etc/coolify-data/wireguard/wui-data:/app/db
-    ports:
-      - 5000:5000
-    depends_on:
-      - wireguard
-    restart: unless-stopped
-    networks:
-      - wg_network
-
-networks:
-  wg_network:
-    driver: bridge
+      - /lib/modules:/lib/modules:ro
