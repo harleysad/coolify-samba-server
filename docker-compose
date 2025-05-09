@@ -1,6 +1,27 @@
 version: '3.8'
 
 services:
+  wireguard:
+    image: lscr.io/linuxserver/wireguard:latest
+    container_name: wireguard
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Sao_Paulo
+    volumes:
+      - /etc/coolify-data/wireguard/config:/config
+      - /lib/modules:/lib/modules
+    ports:
+      - 51820:51820/udp
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+    restart: unless-stopped
+    networks:
+      - wg_network
+
   wg-ui:
     image: ngoduykhanh/wireguard-ui:latest
     container_name: wg-ui
@@ -10,10 +31,10 @@ services:
       - SESSION_SECRET=secret123
       - WG_CONF_TEMPLATE=/etc/wireguard/wg0.conf.tmpl
     volumes:
-      - ./wg_config:/etc/wireguard
-      - ./wg-ui-db:/app/db
+      - /etc/coolify-data/wireguard/config:/etc/wireguard
+      - /etc/coolify-data/wireguard/wui-data:/app/db
     ports:
-      - 80:5000
+      - 5000:5000
     depends_on:
       - wireguard
     restart: unless-stopped
