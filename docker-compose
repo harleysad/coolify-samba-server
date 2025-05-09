@@ -12,6 +12,7 @@ services:
     ports:
       - "500:500/udp"
       - "4500:4500/udp"
+      - "1701:1701/udp"     # L2TP
     sysctls:
       - net.ipv4.ip_forward=1
       - net.ipv4.conf.all.accept_redirects=0
