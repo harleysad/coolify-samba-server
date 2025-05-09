@@ -4,6 +4,7 @@ services:
     image: hwdsl2/ipsec-vpn-server
     container_name: ipsec-vpn
     restart: always
+    privileged: true  # Esta é a forma correta de habilitar modo privilegiado
     environment:
       - VPN_IPSEC_PSK=your_shared_pre_key
       - VPN_USER=seuusuario
@@ -19,8 +20,7 @@ services:
       - net.ipv4.conf.all.send_redirects=0
     cap_add:
       - NET_ADMIN
-      - SYS_MODULE  # Permite carregar módulos do kernel
+      - SYS_MODULE
     volumes:
       - /lib/modules:/lib/modules:ro
-      - /run:/run  # Necessário para alguns sistemas
-    command: ["--privileged"]  # Adiciona privilégios extras
+      - /run:/run
