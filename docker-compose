@@ -12,12 +12,15 @@ services:
     ports:
       - "500:500/udp"
       - "4500:4500/udp"
-      - "1701:1701/udp"     # L2TP
+      - "1701:1701/udp"
     sysctls:
       - net.ipv4.ip_forward=1
       - net.ipv4.conf.all.accept_redirects=0
       - net.ipv4.conf.all.send_redirects=0
     cap_add:
       - NET_ADMIN
+      - SYS_MODULE  # Permite carregar módulos do kernel
     volumes:
       - /lib/modules:/lib/modules:ro
+      - /run:/run  # Necessário para alguns sistemas
+    command: ["--privileged"]  # Adiciona privilégios extras
