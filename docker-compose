@@ -11,7 +11,7 @@ services:
       - NET_ADMIN
     ports:
       - "943:943"
-      - "443:443"
+      - "443"
       - "1194:1194/udp"
     volumes:
       - "<path_to_data>:/openvpn"
