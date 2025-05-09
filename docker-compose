@@ -34,7 +34,7 @@ services:
       - ./wg_config:/etc/wireguard
       - ./wg-ui-db:/app/db
     ports:
-      - 5000:5000
+      - 80:5000
     depends_on:
       - wireguard
     restart: unless-stopped
