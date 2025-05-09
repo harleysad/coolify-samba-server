@@ -10,12 +10,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=America/Sao_Paulo  # Ajuste o fuso horário
-      - SERVERURL=hostinger.harleysad.com  # Ou IP do servidor
-      - SERVERPORT=51820
-      - PEERS=windows  # Nome do cliente (Windows)
-      - PEERDNS=auto  # Usar DNS automático (opcional)
-      - ALLOWEDIPS=10.8.0.0/24  # Roteia apenas a rede VPN
+      - TZ=America/Sao_Paulo
     volumes:
       - ./wg_config:/config
       - /lib/modules:/lib/modules
@@ -24,3 +19,28 @@ services:
     sysctls:
       - net.ipv4.conf.all.src_valid_mark=1
     restart: unless-stopped
+    networks:
+      - wg_network
+
+  wg-ui:
+    image: ngoduykhanh/wireguard-ui:latest
+    container_name: wg-ui
+    environment:
+      - SENDGRID_API_KEY=optional
+      - EMAIL_FROM=optional
+      - SESSION_SECRET=secret123
+      - WG_CONF_TEMPLATE=/etc/wireguard/wg0.conf.tmpl
+    volumes:
+      - ./wg_config:/etc/wireguard
+      - ./wg-ui-db:/app/db
+    ports:
+      - 5000:5000
+    depends_on:
+      - wireguard
+    restart: unless-stopped
+    networks:
+      - wg_network
+
+networks:
+  wg_network:
+    driver: bridge
