@@ -1,16 +1,15 @@
-version: '3.8'
+version: "3.8"
+
 services:
   vpn:
-    image: mberner/strongswan:5.9.11
-    container_name: strongswan-vpn
-    cap_add:
-      - NET_ADMIN
+    image: hwdsl2/ipsec-vpn-server
+    container_name: vpn
+    privileged: true
+    restart: always
     ports:
       - "500:500/udp"
       - "4500:4500/udp"
-    volumes:
-      - ./ipsec.conf:/etc/ipsec.conf  # Config principal
-      - ./ipsec.secrets:/etc/ipsec.secrets  # Credenciais
-    restart: unless-stopped
     environment:
-      - TZ=America/Sao_Paulo
+      - VPN_IPSEC_PSK=senha_super_secreta
+      - VPN_USER=usuario
+      - VPN_PASSWORD=senha123
