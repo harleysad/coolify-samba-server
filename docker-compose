@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   vpn:
-    image: strongswan/strongswan
+    image: mberner/strongswan
     container_name: strongswan-vpn
     cap_add:
       - NET_ADMIN
